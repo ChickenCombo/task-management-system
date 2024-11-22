@@ -10,5 +10,6 @@ namespace task_management_system.Data
 {
     public class ApplicationDBContext(DbContextOptions dbContextOptions) : DbContext(dbContextOptions)
     {
+        public required DbSet<ProjectTask> ProjectTask { get; set; }
     }
 }
