@@ -3,6 +3,7 @@ using task_management_system.Data;
 using task_management_system.Interfaces;
 using task_management_system.Repositories;
 using Newtonsoft.Json;
+using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,10 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
 
 var app = builder.Build();
 
@@ -31,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
