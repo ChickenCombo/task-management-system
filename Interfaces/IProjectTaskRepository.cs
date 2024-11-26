@@ -11,10 +11,9 @@ namespace task_management_system.Interfaces
     public interface IProjectTaskRepository
     {
         Task<ProjectTask> CreateProjectTaskAsync(ProjectTask projectTask);
-        Task<List<ProjectTask>> GetAllAsync(ProjectTaskQuery query);
+        Task<(List<ProjectTask>, int totalCount)> GetAllAsync(ProjectTaskQuery query);
         Task<ProjectTask?> GetByIdAsync(Guid id);
         Task<ProjectTask?> UpdateProjectTaskAsync(Guid id, UpdateProjectTaskDto projectTaskDto);
         Task<ProjectTask?> DeleteAsync(Guid id);
-        Task<int> GetTotalCountAsync(ProjectTaskQuery query);
     }
 }

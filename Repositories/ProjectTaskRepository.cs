@@ -23,7 +23,7 @@ namespace task_management_system.Repositories
             return projectTaskModel;
         }
 
-        public async Task<List<ProjectTask>> GetAllAsync(ProjectTaskQuery query)
+        public async Task<(List<ProjectTask>, int)> GetAllAsync(ProjectTaskQuery query)
         {
             var projectTasks = _context.ProjectTask.AsQueryable();
 
@@ -37,9 +37,12 @@ namespace task_management_system.Repositories
                 projectTasks = projectTasks.Where(pt => pt.Priority == query.Priority);
             }
 
+            var totalCount = await projectTasks.CountAsync();
             var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
-            return await projectTasks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+            var queriedItems = await projectTasks.Skip(skipNumber).Take(query.PageSize).ToListAsync();
+
+            return (queriedItems, totalCount);
         }
 
         public async Task<ProjectTask?> GetByIdAsync(Guid id)

@@ -30,14 +30,11 @@ namespace task_management_system.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] ProjectTaskQuery query)
         {
-            var projectTasks = await _projectTaskRepo.GetAllAsync(query);
-            var projectTasksCount = await _projectTaskRepo.GetTotalCountAsync(query);
-
+            var (projectTasks, totalCount) = await _projectTaskRepo.GetAllAsync(query);
             var projectTasksDto = projectTasks.Select(pt => pt.ToProjectTaskDto()).ToList();
-
             var pagination = new
             {
-                TotalCount = projectTasksCount,
+                TotalCount = totalCount,
                 PageNumber = query.PageNumber,
                 PageSize = query.PageSize
             };
