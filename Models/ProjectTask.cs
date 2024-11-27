@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace task_management_system.Models
 {
     [Table("ProjectTasks")]
-    public class ProjectTask
+    public class ProjectTask : TimestampEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 

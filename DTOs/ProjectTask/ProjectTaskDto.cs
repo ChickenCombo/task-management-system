@@ -13,5 +13,7 @@ namespace task_management_system.DTOs.ProjectTask
         public DateTime DueDate { get; set; }
         public required string Priority { get; set; }
         public required string Status { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

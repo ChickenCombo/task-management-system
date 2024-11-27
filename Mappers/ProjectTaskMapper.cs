@@ -30,7 +30,9 @@ namespace task_management_system.Mappers
                 Description = projectTaskModel.Description,
                 DueDate = projectTaskModel.DueDate,
                 Priority = projectTaskModel.Priority,
-                Status = projectTaskModel.Status
+                Status = projectTaskModel.Status,
+                CreatedAt = projectTaskModel.CreatedAt,
+                UpdatedAt = projectTaskModel.UpdatedAt
             };
         }
     }
